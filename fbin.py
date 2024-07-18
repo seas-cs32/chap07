@@ -1,27 +1,18 @@
 ### chap07/fbin.py
-# Convert a decimal fraction into a binary string.  The script expects
-# you to input a number between 0 (inclusive) and 1 (exclusive).
-
+'''Convert a decimal fraction into a binary string'''
 import sys
 
-# Grab the target number and max number of encoding bits to use from
-# the command line.  The default number of bits to use is 23, which
-# corresponds to the fraction part of a single-precisions FP number.
-if len(sys.argv) < 2 or len(sys.argv) > 3:
-    sys.exit("Usage: python3 fbin.py target [encoding-bits]")
-elif len(sys.argv) == 3:
-    bits = int(sys.argv[2])
-else:
-    bits = 23
-n = float(sys.argv[1])
+# Grab input values
+n = float(input("Decimal fraction to convert: "))
+bits = int(input("Size of significand in bits: "))
 
 # Error checking
-if n < 0. or n >= 1.:
-    sys.exit("ValueError: target must be in the range [0., 1.)")
+if n < 0.0 or n >= 1.0:
+    sys.exit("ValueError: target must be in the range [0.0, 1.0)")
 
 # Initialize our bounds and our current best estimate
-upper = 1.
-lower = 0.
+upper = 1.0
+lower = 0.0
 best = lower  # with 0 bits used, our best estimate is 0
 encoding = ''
 
@@ -29,7 +20,7 @@ for i in range(1, bits+1):
     # Our new estimate always adds a least-significant one bit to the end
     # of our current lower bound, i.e., move up the value below the
     # target number.
-    new_guess = lower + (2. ** -i)
+    new_guess = lower + (2.0 ** -i)
 
     # Update the correct bound, depending upon whether the new estimate
     # overshot the target or not.
