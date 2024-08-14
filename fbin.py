@@ -24,18 +24,18 @@ for i in range(1, bits+1):
 
     # Update the correct bound, depending upon whether the new estimate
     # overshot the target or not.
-    if new_guess < n:
+    if new_guess <= n:
         lower = new_guess
+        encoding += '1'
     else:
         upper = new_guess
+        encoding += '0'
 
     # And now update which of these is our current best estimate
     if n - lower < upper - n:
         best = lower
-        encoding += '0'
     else:
         best = upper
-        encoding += '1'
 
     if best == n:
         break
